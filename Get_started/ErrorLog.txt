@@ -1,0 +1,62 @@
+# Title: Software framework for the processing and statistical analysis of multivariate MS-data
+# Owner: Laboratory of Integrative Metabolomics (LIMET), Ghent university
+# Creator: Dr. Marilyn De Graeve
+# Maintainer: <limet@ugent.be>
+# Script: ErrorLog
+
+
+##########Frequently got errors##########
+#### MAIN ####
+Error in setwd(path_R_scripts) : cannot change working directory
+= forget to change path of computer, or typing error in folder "R_scripts" (eg. Rscripts)
+
+Error in setwd(path_data_in) : cannot change working directory
+= path is correct, problem: projectname wrong (eg written with space), non-existent folder to input (development after source config w wrong name)
+
+Error : cannot allocate vector of size 7.8 Mb
+or 
+killed during process 
+= not enough RAM for R pipeline to compute (probably step annotate from part pre-processing Thermo), increase RAM of Rbox if possible
+
+Not engough space
+= hard drive is full, free up space for calculating
+
+Error in file(file, ifelse(append, "a", "w")) : cannot open the connection
+= close excel, close other files opened, check path in main.r correct 
+
+Error in file(filename, "r", encoding = encoding): cannot open the connection
+Calls: source -> file
+In addition: Warning message: In file (filename, "r", encoding = encoding): cannot open file 'configuration.R': No such file or directory
+Execution halted
+= configuration.r.r extension is wrong, check configuration.r instead of twice suffix .r
+
+(process:5453): Pango-WARNING **: Invalid UTF-8 string passed to pango_layout_set_text()
+= created/exported txt can be in wrong format (incorrect UTF-8), copy/paste from txt to txt to solve.
+
+
+####PART 2: correlation analysis####
+Error in type.convert(data[[i]], as.is = as.is[i], dec = dec, numerals = numerals,  : 
+  invalid multibyte string at '<85>'
+OR
+Warning message:
+In read.table(file = INPUT_VARIABLES1, header = TRUE, sep = "\t",  :
+  incomplete final line found by readTableHeader on 'CM1.txt'
+=> file unreadable, check for symbols and remove so only text/numeric info present.
+
+Error in make.names(col.names, unique = TRUE) :
+invalid multibyte string 4
+Error in hclust(dist.mat, method = clust.method[1]) :
+NA/NaN/Inf in foreign function call (arg 11)
+=> need min 2 smaples and min 2 (non-zero) variables to work
+
+Error in `row.names<-.data.frame`(`*tmp*`, value = value) : 
+  invalid 'row.names' length
+Calls: source ... rownames<- -> row.names<- -> row.names<-.data.frame
+Execution halted
+=> are COLLUMN_NR_START_SAMPLES1 and COLLUMN_NR_START_SAMPLES2 correct? OR
+=> need min 2 smaples and min 2 (non-zero) variables to work
+
+
+
+#
+####################

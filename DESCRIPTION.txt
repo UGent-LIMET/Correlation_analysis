@@ -1,0 +1,28 @@
+# Title: Software framework for the processing and statistical analysis of multivariate MS-data
+# Owner: Laboratory of Integrative Metabolomics (LIMET), Ghent university
+# Creator: Dr. Marilyn De Graeve
+# Maintainer: <limet@ugent.be>
+# Repository: Correlation_statistics
+
+# Description: This module performs Spearman correlation analysis of the biological samples between two transformed (normalized, scaled) datasets. Possibly, input files can be created from the transposed “normalized, log transformed and pareto scaled biological samples MetadataT.txt” output from multivariate statistics.
+# Input: 
+# -	Configuration.R
+# -	VariableMetadata1.txt (VM1): metabolomics, with CompIDs as rows
+#   ! always need to be centered, normalized...
+# -	VariableMetadata2.txt (VM2): other source, with variables as rows
+#   Format is less strict format, may contain e.g., OTU specific information instead of MS specific information). Include minimum of 2 features.
+#   ! always need to be centered, normalized...
+# -	Optional: in case of OTU microbiome data as VM2, option to perform normalization and centration automatically during run. 
+# -	Optional: VM with the same CompIDs as 1st variableMetadata VM1 file to perform variables selection, to use in later analysis (e.g. univariate analysis)
+# -	Optional: reduce VM1 prior to correlation analysis using subsetted VM file. E.g. to run 2nd time with only VM1 compIDs that remain in SUBSET_VM (if p-values takes too long to run on whole dataset)
+# Output: 
+# -	Histograms to check distribution of transformed input data (per set and overlay set1+set2)
+# -	Depending on number of variables per set, for small files (< 200 variables):
+#   o	Correlation coefficients matrix (samples vs samples set1, samples vs samples set2, samples vs samples set1+set2, variables vs variables set1, variables vs variables set2, variables vs variables set1+set2, variables set1 vs variables set2)
+#   o	Correlation FDR adjusted p-value22 matrix (samples vs samples set1, samples vs samples set2, samples vs samples set1+set2, variables vs variables set1, variables vs variables set2, variables vs variables set1+set2, variables set1 vs variables set2)
+#   o	Hierarchical clustered heat map of Correlation coefficients (samples vs samples set1, samples vs samples set2, samples vs samples set1+set2, variables vs variables set1, variables vs variables set2, variables vs variables set1+set2, variables set1 vs variables set2)
+#   o	Hierarchical clustered heat map of samples vs variables (set1, set2, set1+set2)
+# -	For large files:
+#   o	Correlation coefficients tabular file (variables set1 vs variables set2) with/wo FDR adjusted p-values22
+# -	Dot- and boxplot of top ranked correlation coefficients, incl. ranked correlation coefficients tabular file (variables set1 vs variables set2)
+# -	Optional: VM with only important variables retained, given correlation coefficients and p-value threshold selection, which you can use as input for univariate analysis
