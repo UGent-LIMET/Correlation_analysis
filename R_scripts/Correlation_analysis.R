@@ -150,7 +150,7 @@ if(P_VALUE_CALCULATION == P_VALUES){
   if(ncol_merged_df <= 200){ 
     
     #####HM SvsS per set######
-    #set 1
+    ## set 1
     correlation_scaledmatrix <- correlation_matrix_samples(t(scaledmatrix_samples1))
     write_matrixTT_as_txt_file(correlation_scaledmatrix, "corr_coef_SvsS_set1.txt") 
     
@@ -181,9 +181,25 @@ if(P_VALUE_CALCULATION == P_VALUES){
     heatmap_comp <- cim(data.matrix(correlation_scaledmatrix), color=pal(100), save='png', name.save = name_plot,
                         row.names=TRUE,col.names=TRUE, cluster = "both",center=F,scale=F, margins = c(10,10))
     
+    #clustering samples order
+    ord <- hclust(dist(correlation_scaledmatrix))$order #info about order in object ord$order
+    #default clustering: Cluster method: complete; Distance: euclidean see doc: https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/hclust
+    #ord
+    dendrogram <-as.dendrogram(hclust(dist(correlation_scaledmatrix)))
+    png(paste(name_project, "_dendogram_clust_corr_SvsS_set1.png", sep=""), width=10, height=5, units="in", res=300)
+    par(cex=.2)
+    plot(dendrogram)
+    dev.off()
+    
+    #info from dendogram, write order to corr_info
+    comp_names2 <- NULL
+    comp_names2$SampleName <- rownames(correlation_scaledmatrix) 
+    comp_names2 <- data.frame(comp_names2)
+    comp_names2$ord <- ord
+    write_dataframe_as_txt_file(comp_names2, paste(name_project, "_dendogram_clust_corr_SvsS_set1.txt", sep=""))
     
     
-    #set 2
+    ## set 2
     correlation_scaledmatrix <- correlation_matrix_samples(t(scaledmatrix_samples2))
     write_matrixTT_as_txt_file(correlation_scaledmatrix, "corr_coef_SvsS_set2.txt") 
     
@@ -290,7 +306,7 @@ if(P_VALUE_CALCULATION == P_VALUES){
     
     
     #####HM VarvsVar per set - intra ######
-    #set 1
+    ## set 1
     correlation_scaledmatrix <- correlation_matrix_samples(scaledmatrix_samples1)
     
     #p values after FDR adjusted corr matrix calc
@@ -344,9 +360,25 @@ if(P_VALUE_CALCULATION == P_VALUES){
                           row.names=TRUE,col.names=TRUE, cluster = "both",center=F,scale=F, margins = c(10,10))
     }
     
+    #clustering variables order
+    ord <- hclust(dist(correlation_scaledmatrix))$order #info about order in object ord$order
+    #default clustering: Cluster method: complete; Distance: euclidean see doc: https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/hclust
+    #ord
+    dendrogram <-as.dendrogram(hclust(dist(correlation_scaledmatrix)))
+    png(paste(name_project, "_dendogram_clust_corr_VarvsVar_variableset1.png", sep=""), width=10, height=5, units="in", res=300)
+    par(cex=.2)
+    plot(dendrogram)
+    dev.off()
+    
+    #info from dendogram, write order to corr_info
+    comp_names2 <- NULL
+    comp_names2$CompID <- rownames(correlation_scaledmatrix) 
+    comp_names2 <- data.frame(comp_names2)
+    comp_names2$ord <- ord
+    write_dataframe_as_txt_file(comp_names2, paste(name_project, "_dendogram_clust_corr_VarvsVar_variableset1.txt", sep=""))
     
     
-    #set 2
+    ## set 2
     correlation_scaledmatrix <- correlation_matrix_samples(scaledmatrix_samples2)
     
     
@@ -751,8 +783,9 @@ if(P_VALUE_CALCULATION == NO_P_VALUES){
 
   gc()
   ###########
+
   
-  
+  ###########HM Var set1 vs Var set2 - inter ###########
   #NO P-values, only inter !!
   #approx 10min for 'large' (ncolmerged=5000)
   
