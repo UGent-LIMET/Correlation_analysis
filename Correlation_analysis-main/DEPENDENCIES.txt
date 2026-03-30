@@ -1,0 +1,49 @@
+#R version 4.5.2
+#R-packages:
+install.packages("devtools")  
+install.packages("ggplot2")
+install.packages("moments")
+install.packages("tibble")
+install.packages("data.table")
+install.packages("RColorBrewer")
+install.packages("boot")
+install.packages("car") 
+install.packages("igraph") 
+install.packages("ellipse")
+install.packages("corpcor")
+install.packages("dplyr")
+install.packages("tidyr")
+install.packages("matrixStats")
+install.packages("gridExtra")
+install.packages("rgl") 
+install.packages("rARPACK")
+install.packages('https://cran.r-project.org/src/contrib/Archive/mixOmics/mixOmics_6.3.1.tar.gz')
+install.packages("NormalizeMets")
+install.packages("tinytex")
+tinytex::install_tinytex()  
+tinytex::tlmgr_update()
+install.packages("kableExtra")
+install.packages('magick')
+install.packages("animation")
+install.packages("convertGraph")
+install.packages("randomForest")
+install.packages("dunn.test") 
+install.packages("psych") 
+
+source("https://bioconductor.org/biocLite.R")  #biocManager 3.6 for R<3.5.-
+# BiocInstaller::biocLite() and biocLite() are deprecated and no longer supported.
+install.packages("BiocManager")
+BiocManager::install(c(
+  "ropls",
+  "limma",
+  "mzR",
+  "MSnbase",
+  "xcms",
+  "CAMERA",
+  "IPO",
+  "EBImage",
+  "fftwtools"
+))
+install.packages("remotes")  # if not installed
+remotes::install_github("cran/NormalizeMets")
+remotes::install_github("cran/convertGraph")
