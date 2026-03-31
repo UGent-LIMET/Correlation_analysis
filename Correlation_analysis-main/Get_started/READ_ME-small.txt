@@ -51,5 +51,4 @@ File1 = "variableMetadata" = output peak calling (~sieve/CD)
 
 
 ### Input Confounders ###
-Manually input the confounders for partial correlation analysis. The character values must be separated by commas, for example:
-Apple, Pear, Banana, Kiwi, Lemon
+# - Manually input the confounders for partial correlation analysis. It should be some elements of the first column of VMs - CompID values), where the values must be separated by commas - for example: 9012, 9013, 9014, 9015

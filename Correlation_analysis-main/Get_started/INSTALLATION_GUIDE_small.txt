@@ -22,8 +22,12 @@ get started
 ### Install required dependencies ###
 - install required dependencies according to instructions in DEPENDENCIES
 
-### Run code ###
-- Rscript main.r projectname 
+### Run code - 2 ways ###
+Method 1.
+Rscript main.r projectname 
+Method 2. 
+setwd("EDIT THIS - THE FOLDER PATH TO THE R SCRIPTS")
+source("main.r")
 
 ### Get results ###
 - in folder Data/output: plots, txt files raw output 

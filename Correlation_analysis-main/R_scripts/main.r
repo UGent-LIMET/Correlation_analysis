@@ -9,13 +9,13 @@
 #Working directory
 
 ## options
-PATH_USER <- 'C:/Users/eetai/OneDrive - UGent/Desktop/limet_lab_materials/FFQ_correlations/Correlation_analysis-edit/Correlation_analysis-main/' # example path user
+PATH_USER <- 'C:/Users/eetai/OneDrive - UGent/Desktop/limet_lab_materials/FFQ_correlations/Correlation_analysis-github/Correlation_analysis-main/' # example path user
   
 CODE_AUTORUN <- 'run code in ternminal automatically'
 CODE_DEVELOPMENT <- 'run code manually in Rstudio for development locally'
 
 ## Adjustments
-PATH <- 'C:/Users/eetai/OneDrive - UGent/Desktop/limet_lab_materials/FFQ_correlations/Correlation_analysis-edit/Correlation_analysis-main/Targeted_FFQ/'
+PATH <- 'C:/Users/eetai/OneDrive - UGent/Desktop/limet_lab_materials/FFQ_correlations/Correlation_analysis-github/Correlation_analysis-main/Targeted_FFQ/'
 
 CODE_RUN_MODE <- CODE_AUTORUN
 
@@ -55,11 +55,11 @@ setwd(path_data_in)
 source('Configuration.R')
 
 #make output directory for project: for corr (1st results) & pcorr (2nd results)
-dir.create(file.path(PATH, 'Output_20260330_corr', name_project))
-path_data_out_1 <- file.path(PATH, 'Output_20260330_corr', name_project)
+dir.create(file.path(PATH, 'Output_20260331_corr', name_project))
+path_data_out_1 <- file.path(PATH, 'Output_20260331_corr', name_project)
 
-dir.create(file.path(PATH, 'Output_20260330_pcorr', name_project))
-path_data_out_2 <- file.path(PATH, 'Output_20260330_pcorr', name_project)
+dir.create(file.path(PATH, 'Output_20260331_pcorr', name_project))
+path_data_out_2 <- file.path(PATH, 'Output_20260331_pcorr', name_project)
 
 #
 #####################

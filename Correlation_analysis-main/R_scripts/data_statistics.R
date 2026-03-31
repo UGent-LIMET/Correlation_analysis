@@ -440,6 +440,10 @@ partial_correlation_matrix_samples <- function(scaledmatrix_samples1, scaledmatr
     correlation_scaledmatrix <- round(r, 3)
     
   } else {
+    # colnames(scaledmatrix_samples1) <- trimws(as.character(colnames(scaledmatrix_samples1)))
+    # colnames(scaledmatrix_samples2) <- trimws(as.character(colnames(scaledmatrix_samples2)))
+    # confounders <- trimws(as.character(confounders))
+    
     data <- cbind(scaledmatrix_samples1, scaledmatrix_samples2)
     # data <- data[, colnames(data), drop = FALSE] # does nothing
     data <- na.omit(data)
@@ -482,6 +486,9 @@ Pvalues_partial_correlation_matrixFDR <- function(scaledmatrix_samples1, scaledm
     p <- corr.p(r, n = n - k, adjust = "fdr", alpha=.05, ci = FALSE)$p
     
   } else {
+    # colnames(scaledmatrix_samples1) <- trimws(as.character(colnames(scaledmatrix_samples1)))
+    # colnames(scaledmatrix_samples2) <- trimws(as.character(colnames(scaledmatrix_samples2)))
+    # confounders <- trimws(as.character(confounders))
     
     data <- cbind(scaledmatrix_samples1, scaledmatrix_samples2)
     data <- na.omit(data)
@@ -514,6 +521,10 @@ Pvalues_partial_correlation_matrixFDR <- function(scaledmatrix_samples1, scaledm
 partial_correlation_analysis_loop <- function(scaledmatrix_samples1, scaledmatrix_samples2, confounders) {
   suppressMessages(library(psych))
 
+  # colnames(scaledmatrix_samples1) <- trimws(as.character(colnames(scaledmatrix_samples1)))
+  # colnames(scaledmatrix_samples2) <- trimws(as.character(colnames(scaledmatrix_samples2)))
+  # confounders <- trimws(as.character(confounders))
+  
   data <- cbind(scaledmatrix_samples1, scaledmatrix_samples2)
   data <- na.omit(data)
   
