@@ -2,9 +2,9 @@
 
 load_sampleMetadata <- function(INPUT_SAMPLES){
   # load samplelist from .txt file
-  try(sampleMetadata <- read.table(INPUT_SAMPLES, header=TRUE, sep="\t"))
+  try(sampleMetadata <- read.table(INPUT_SAMPLES, header=TRUE, sep="\t", check.names = FALSE))
   if(exists("sampleMetadata") == FALSE){
-    try(sampleMetadata <- read.table(file=INPUT_SAMPLES, header=TRUE, sep="\t", fileEncoding="UTF-16")) 
+    try(sampleMetadata <- read.table(file=INPUT_SAMPLES, header=TRUE, sep="\t", fileEncoding="UTF-16", check.names = FALSE)) 
   }
   if(exists("sampleMetadata") == FALSE){
     stop('Can not read SM.txt files, check if UTF-16/UTF-8/ASCII format')
@@ -31,7 +31,7 @@ load_sampleMetadata <- function(INPUT_SAMPLES){
 
 test_load_sampleMetadata <- function(){
   fn2 <- 'carol-sampleMetadata_short.txt'
-  sampleMetadata <- read.table(fn2, header=TRUE, sep="\t")
+  sampleMetadata <- read.table(fn2, header=TRUE, sep="\t", check.names = FALSE)
   
   stopifnot(nrow(sampleMetadata) == 40)
 }
@@ -39,7 +39,7 @@ test_load_sampleMetadata <- function(){
 load_variableMetadata <- function(INPUT_VARIABLES){
   # load samplelist from .txt file
   #todo!!!! need distribution min/max to work!!! add tests in read VM file
-  variableMetadata <- read.table(INPUT_VARIABLES, header=TRUE, fill=T, sep="\t")
+  variableMetadata <- read.table(INPUT_VARIABLES, header=TRUE, fill=T, sep="\t", check.names = FALSE)
  
   stopifnot(class(variableMetadata$CompID)=="integer") #CompID are integers (eg. 1, 2, ..., n)
   indx <- apply(variableMetadata[,COLLUMN_NR_START_SAMPLES:ncol(variableMetadata)], 2, function(x) any(is.na(x) | is.infinite(x) | is.numeric(x)))
@@ -74,7 +74,7 @@ load_variableMetadata <- function(INPUT_VARIABLES){
 
 load_targetedMetadata <- function(INPUT_STANDARDS){
   # load standards list from .txt file
-  targetedMetadata <- read.table(INPUT_STANDARDS, header=TRUE, sep="\t")
+  targetedMetadata <- read.table(INPUT_STANDARDS, header=TRUE, sep="\t", check.names = FALSE)
   
   #all columns present
   stopifnot("STD_ID" %in% colnames(targetedMetadata)) 
@@ -107,7 +107,7 @@ load_matrix3_CopmIDs_all <- function(){
     stop('Can not perform visualisation, pre-processing needs to be performed in R pipeline')
   }
   
-  matrix3_CopmIDs_all <- read.table(file=namedf, header=TRUE, sep="\t")
+  matrix3_CopmIDs_all <- read.table(file=namedf, header=TRUE, sep="\t", check.names = FALSE)
   
   return(matrix3_CopmIDs_all)
 }
@@ -146,9 +146,9 @@ load_large_df <- function(file_){
 
 load_correlationMetadata <- function(INPUT_VARIABLES1){
   # load samplelist from .txt file
-  try(correlationMetadata <- read.table(INPUT_VARIABLES1, header=TRUE, sep="\t"))
+  try(correlationMetadata <- read.table(INPUT_VARIABLES1, header=TRUE, sep="\t", check.names = FALSE))
   if(exists("correlationMetadata") == FALSE){
-    try(correlationMetadata <- read.table(file=INPUT_VARIABLES1, header=TRUE, sep="\t", fileEncoding="latin1")) #latin1 on ibof, ok on r reims
+    try(correlationMetadata <- read.table(file=INPUT_VARIABLES1, header=TRUE, sep="\t", fileEncoding="latin1", check.names = FALSE)) #latin1 on ibof, ok on r reims
   }
   if(exists("correlationMetadata") == FALSE){
     stop('Can not read CM.txt files, check if UTF-16/UTF-8/ASCII format')
@@ -167,7 +167,7 @@ load_variableMetadata_other <- function(INPUT_VARIABLES, COLLUMN_NR_START_SAMPLE
   #less strict than above, also other variables than metab allowed
   #also neg numbers and NAs allowed
   
-  variableMetadata <- read.table(INPUT_VARIABLES, header=TRUE, fill=T, sep="\t")
+  variableMetadata <- read.table(INPUT_VARIABLES, header=TRUE, fill=T, sep="\t", check.names = FALSE)
   
   #compid needs to be present but not int
   #stopifnot(class(variableMetadata$CompID)=="integer") #CompID are integers (eg. 1, 2, ..., n)
@@ -183,5 +183,16 @@ load_variableMetadata_other <- function(INPUT_VARIABLES, COLLUMN_NR_START_SAMPLE
   min_samples <- 2
   stopifnot(nrow(variableMetadata) >= min_samples) #more then 10 samples in analysis
   
+  #### ADDED ####
+  # Encode categorical columns as 0/1 dummy variables (drops intercept column)
+  cat_cols <- names(variableMetadata)[sapply(variableMetadata[,COLLUMN_NR_START_SAMPLES:ncol(variableMetadata)], function(x) is.character(x) | is.factor(x))]
+  
+  if (length(cat_cols) > 0) {
+    variableMetadata <- data.frame(
+      variableMetadata[, setdiff(names(variableMetadata), cat_cols), drop = FALSE],
+      model.matrix(~ . - 1, data = variableMetadata[, cat_cols, drop = FALSE])
+    )
+  }
+  ###############
   return(variableMetadata)
 }

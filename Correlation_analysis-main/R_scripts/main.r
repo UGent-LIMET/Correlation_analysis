@@ -4,7 +4,7 @@
 # Maintainer: <limet@ugent.be>
 # Script: Main
 
-
+rm(list = ls()) # This clears all old functions/variables from memory
 ##########Configuration##########
 #Working directory
 
@@ -55,11 +55,15 @@ setwd(path_data_in)
 source('Configuration.R')
 
 #make output directory for project: for corr (1st results) & pcorr (2nd results)
-dir.create(file.path(PATH, 'Output_20260331_corr', name_project))
-path_data_out_1 <- file.path(PATH, 'Output_20260331_corr', name_project)
+#dir.create(file.path(PATH, 'Output_20260414_corr', name_project))
+path_data_out_1 <- file.path(PATH, 'Output_20260414_corr', name_project)
 
-dir.create(file.path(PATH, 'Output_20260331_pcorr', name_project))
-path_data_out_2 <- file.path(PATH, 'Output_20260331_pcorr', name_project)
+#dir.create(file.path(PATH, 'Output_20260414_pcorr', name_project))
+path_data_out_2 <- file.path(PATH, 'Output_20260414_pcorr', name_project)
+
+dir.create(path_data_out_1, recursive = TRUE)
+dir.create(path_data_out_2, recursive = TRUE)
+
 
 #
 #####################
@@ -74,12 +78,22 @@ print("R pipeline - start!")
 stopifnot(name_project == EXPERIMENT)
 print(name_project)
 
+### GET CONFOUNDERS FROM USER!!!####
+# Ask the user for input
+raw_input <- readline(prompt = "Enter confounders separated by commas: ")
+# Split the string by commas and remove extra whitespace
+confounders <- trimws(unlist(strsplit(raw_input, ",")))
+# View the result
+print(confounders)
+
 #Run selected modules
 if(RUN_PART_CORRELATION == RUN_CODE){
-  setwd(path_R_scripts)
-  source('Correlation_analysis.R')
-  setwd(path_R_scripts)
-  source('Partial_Correlation_analysis.R')
+  # setwd(path_R_scripts)
+  # source('Correlation_analysis.R')
+  # setwd(path_R_scripts)
+  # source('Partial_Correlation_analysis.R')
+  source(file.path(path_R_scripts, "Correlation_analysis.R"))
+  source(file.path(path_R_scripts, "Partial_Correlation_analysis.R"))
 }
 if(RUN_PART_CORRELATION == DONT_RUN_CODE){
   print('no correlation analysis was performed')

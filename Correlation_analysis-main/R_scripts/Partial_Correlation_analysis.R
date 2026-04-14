@@ -23,13 +23,13 @@ setwd(path_data_in)
 library("reshape")
 
 
-### GET CONFOUNDERS FROM USER!!!####
-# Ask the user for input
-raw_input <- readline(prompt = "Enter confounders separated by commas: ")
-# Split the string by commas and remove extra whitespace
-confounders <- trimws(unlist(strsplit(raw_input, ",")))
-# View the result
-print(confounders)
+# ### GET CONFOUNDERS FROM USER!!!####
+# # Ask the user for input
+# raw_input <- readline(prompt = "Enter confounders separated by commas: ")
+# # Split the string by commas and remove extra whitespace
+# confounders <- trimws(unlist(strsplit(raw_input, ",")))
+# # View the result
+# print(confounders)
 
 
 #load 2x VMs == SM_merged (format not as strict so, other load)

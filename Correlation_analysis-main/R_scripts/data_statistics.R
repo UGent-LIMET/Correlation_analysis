@@ -362,7 +362,10 @@ Pvalues_correlation_matrixFDR <- function(scaledmatrix_samples1, scaledmatrix_sa
     #matrix$r same as using corr in default func but slower
   }
   
-  Pvalues_correlation_scaledmatrix <- round(adj_correlation_scaledmatrix$p, 3) #extract FDR adjusted p-values
+  # Pvalues_correlation_scaledmatrix <- round(adj_correlation_scaledmatrix$p, 3) #extract FDR adjusted p-values
+  
+  # Keep 3 significant digits (e.g., 0.00000456 becomes 4.56e-06)
+  Pvalues_correlation_scaledmatrix <- signif(adj_correlation_scaledmatrix$p, digits = 3)
   
   detach(package:psych) #issue mixomics, ggplot possibly
   return(Pvalues_correlation_scaledmatrix)
@@ -412,7 +415,11 @@ correlation_analysis_loop <- function(scaledmatrix_samples1, scaledmatrix_sample
       correlation.result[ij,] <- c(rho, p.val, source, metab)
     }
   }
-  correlation.result$adj_p_value <- round(p.adjust(as.numeric(correlation.result$adj_p_value), method = "BH"), 3)
+  # correlation.result$adj_p_value <- round(p.adjust(as.numeric(correlation.result$adj_p_value), method = "BH"), 3)
+  
+  correlation.result$adj_p_value <- signif(p.adjust(as.numeric(correlation.result$adj_p_value), method = "BH"), digits = 3)
+  
+  
   detach(package:psych) #issue mixomics, ggplot possibly
   
   return (correlation.result)
@@ -511,7 +518,10 @@ Pvalues_partial_correlation_matrixFDR <- function(scaledmatrix_samples1, scaledm
     p <- corr.p(r, n = n - k, adjust = "fdr", alpha=.05, ci = FALSE)$p
   }
   
-  Pvalues_correlation_scaledmatrix <- round(p, 3)
+  # Pvalues_correlation_scaledmatrix <- round(p, 3)
+  
+  Pvalues_correlation_scaledmatrix <- signif(p, digits = 3)
+  
   
   detach(package:psych)
   return(Pvalues_correlation_scaledmatrix)
@@ -555,7 +565,9 @@ partial_correlation_analysis_loop <- function(scaledmatrix_samples1, scaledmatri
   )
   
   # Adjust p-values across all pairs (Benjamini-Hochberg)
-  correlation.result$adj_p_value <- round(p.adjust(correlation.result$p_value, method = "BH"), 3)
+  # correlation.result$adj_p_value <- round(p.adjust(correlation.result$p_value, method = "BH"), 3)
+  
+  correlation.result$adj_p_value <- signif(p.adjust(correlation.result$p_value, method = "BH"), digits = 3)
   
   # Keep only necessary columns
   correlation.result <- correlation.result[, c("rho", "adj_p_value", "CompID1", "CompID2")]

@@ -10,6 +10,17 @@ get started
 ***********
 
 ### requirements files ###
+
+Need 2 files as input: 'VM1_part_metabolomics.txt', 'VM2_part_source.txt'
+- The columns must be samples and rows must contain features including each of the confounder variables, such as age, BMI, sex.
+Need confounders as input: 
+- Manually input the confounders for partial correlation analysis.
+- It should be some combinations of rownames, where the values must be separated by commas - for example: 9012, 9013, 9014, 9015
+- In case where confounders are categorical:
+- 1) ordered categories: must be converted into ordered numeric values (e.g. 1,2,3) 
+- 2) unordered categories: put the category as a single row with the categorical values, the code will automatically generate numeric dummy variables.
+
+
 "variableMetadata" = output peak calling, is made automatically in part 1: pre-processing.
 Alternatively, this can be imported directly here if the format is respected.
 For this, the following rules apply:
@@ -48,7 +59,3 @@ File1 = "variableMetadata" = output peak calling (~sieve/CD)
 - when only part of the pipeline is run: adjust the global settings (eg. projectname) and the selected parts
 - Save Configuration.R
 - close Configuration.R
-
-
-### Input Confounders ###
-# - Manually input the confounders for partial correlation analysis. It should be some elements of the first column of VMs - CompID values), where the values must be separated by commas - for example: 9012, 9013, 9014, 9015
