@@ -17,7 +17,7 @@
 # -	Optional: VM with the same CompIDs as 1st variableMetadata VM1 file to perform variables selection, to use in later analysis (e.g. univariate analysis)
 # -	Optional: reduce VM1 prior to correlation analysis using subsetted VM file. E.g. to run 2nd time with only VM1 compIDs that remain in SUBSET_VM (if p-values takes too long to run on whole dataset)
 # -	Confounders: Manually input the confounders for partial correlation analysis. 
-# -	It should be some combinations of rownames, where the values must be separated by commas - for example: 9012, 9013, 9014, 9015
+# -	It should be some combinations of rownames (of either or both datasets), where the values must be separated by commas - for example: 9012, 9013, 9014, 9015
 # - 	In case where confounders are categorical:
 # - 	1) ordered categories: must be converted into ordered numeric values (e.g. 1,2,3) 
 # - 	2) unordered categories: put the category as a single row with the categorical values, the code will automatically generate numeric dummy variables.

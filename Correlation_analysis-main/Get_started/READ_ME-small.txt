@@ -13,7 +13,7 @@ get started
 
 Need 2 files as input: 'VM1_part_metabolomics.txt', 'VM2_part_source.txt'
 - The columns must be samples and rows must contain features including each of the confounder variables, such as age, BMI, sex.
-Need confounders as input: 
+Need confounders as input (the confounders should be present as rows in either or both of the input datasets): 
 - Manually input the confounders for partial correlation analysis.
 - It should be some combinations of rownames, where the values must be separated by commas - for example: 9012, 9013, 9014, 9015
 - In case where confounders are categorical:
