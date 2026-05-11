@@ -64,12 +64,12 @@ if(RUN_PART_CORRELATION == RUN_CODE){
   # variableMetadata file 1: metabolomics
   #NEVER from pipeline, always need to be centrered, normalized...
   INPUT_VARIABLES1 <- 'VM1_part_metabolomics.txt'  #'name.txt' of file.
-  COLLUMN_NR_START_SAMPLES1 <- 2
+  COLLUMN_NR_START_SAMPLES1 <- 20
   
   # variableMetadata file 2: other
   #NEVER from pipeline, always need to be centrered, normalized...
   INPUT_VARIABLES2 <- 'VM2_part_source.txt'  #'name.txt' of file. 
-  COLLUMN_NR_START_SAMPLES2 <- 4
+  COLLUMN_NR_START_SAMPLES2 <- 2
   
   #optional: in case of microbiome data as VM2, perform normalisation and centration automatically during run
   OTU_SCALING_OPTION <- NO_OTU_SCALING

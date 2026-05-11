@@ -383,8 +383,8 @@ correlation_analysis_loop <- function(scaledmatrix_samples1, scaledmatrix_sample
   # create a presized data frame
   Arows <- nrow(A.data)
   Brows <- nrow(B.data)
-  correlation.result <- data.frame(t(matrix(c(0.0, 0.0, "foo", "foo"), nrow=4, ncol=Arows * Brows)), stringsAsFactors=FALSE)
-  colnames(correlation.result) <- c("rho", "adj_p_value", "CompID1", "CompID2")
+  correlation.result <- data.frame(t(matrix(c(0.0, 0.0, 0.0, "foo", "foo"), nrow=5, ncol=Arows * Brows)), stringsAsFactors=FALSE)
+  colnames(correlation.result) <- c("rho", "p_value", "adj_p_value", "CompID1", "CompID2")
   
   # assign values to that presized data frame 
   Acols <- ncol(A.data)
@@ -412,12 +412,14 @@ correlation_analysis_loop <- function(scaledmatrix_samples1, scaledmatrix_sample
       source <- paste(Aname)
       metab <- paste(Bname)
       # assign value to row of result data frame
-      correlation.result[ij,] <- c(rho, p.val, source, metab)
+      correlation.result[ij,] <- c(rho, p.val, p.val, source, metab)
     }
   }
   # correlation.result$adj_p_value <- round(p.adjust(as.numeric(correlation.result$adj_p_value), method = "BH"), 3)
   
   correlation.result$adj_p_value <- signif(p.adjust(as.numeric(correlation.result$adj_p_value), method = "BH"), digits = 3)
+  
+  correlation.result$p_value <- signif(as.numeric(correlation.result$p_value), digits = 3)
   
   
   detach(package:psych) #issue mixomics, ggplot possibly
@@ -553,7 +555,10 @@ partial_correlation_analysis_loop <- function(scaledmatrix_samples1, scaledmatri
   
   r <- r_full[vars1, vars2, drop = FALSE] # Use drop = FALSE if you are subsetting a matrix, array, or data frame and you want to preserve the original dimensions
   
-  p <- corr.p(r, n = n - k, adjust = "fdr", alpha=.05, ci = FALSE)$p
+  #p <- corr.p(r, n = n - k, adjust = "fdr", alpha=.05, ci = FALSE)$p
+  # avoid double pval adjustment
+  p <- corr.p(r, n = n - k, adjust = "none", alpha=.05, ci = FALSE)$p
+  
 
   # Create long-format correlation.result
   correlation.result <- data.frame(
@@ -561,6 +566,7 @@ partial_correlation_analysis_loop <- function(scaledmatrix_samples1, scaledmatri
     CompID2 = rep(colnames(r), each = nrow(r)),
     rho = as.vector(r),
     p_value = as.vector(p),
+    adj_p_value = as.vector(p),
     stringsAsFactors = FALSE
   )
   
@@ -569,8 +575,10 @@ partial_correlation_analysis_loop <- function(scaledmatrix_samples1, scaledmatri
   
   correlation.result$adj_p_value <- signif(p.adjust(correlation.result$p_value, method = "BH"), digits = 3)
   
+  correlation.result$p_value <- signif(as.numeric(correlation.result$p_value), digits = 3)
+  
   # Keep only necessary columns
-  correlation.result <- correlation.result[, c("rho", "adj_p_value", "CompID1", "CompID2")]
+  correlation.result <- correlation.result[, c("rho", "p_value", "adj_p_value", "CompID1", "CompID2")]
   
   
   detach(package:psych)

@@ -56,10 +56,10 @@ source('Configuration.R')
 
 #make output directory for project: for corr (1st results) & pcorr (2nd results)
 #dir.create(file.path(PATH, 'Output_20260414_corr', name_project))
-path_data_out_1 <- file.path(PATH, 'Output_20260414_corr', name_project)
+path_data_out_1 <- file.path(PATH, 'Output_20260508_corr', name_project)
 
 #dir.create(file.path(PATH, 'Output_20260414_pcorr', name_project))
-path_data_out_2 <- file.path(PATH, 'Output_20260414_pcorr', name_project)
+path_data_out_2 <- file.path(PATH, 'Output_20260508_pcorr', name_project)
 
 dir.create(path_data_out_1, recursive = TRUE)
 dir.create(path_data_out_2, recursive = TRUE)
@@ -85,6 +85,12 @@ raw_input <- readline(prompt = "Enter confounders separated by commas: ")
 confounders <- trimws(unlist(strsplit(raw_input, ",")))
 # View the result
 print(confounders)
+
+if (missing(confounders) || length(confounders) == 0) {
+  raw_input <- readline("Enter confounders separated by commas: ")
+  confounders <- trimws(unlist(strsplit(raw_input, ",")))
+  print(confounders)
+}
 
 #Run selected modules
 if(RUN_PART_CORRELATION == RUN_CODE){
