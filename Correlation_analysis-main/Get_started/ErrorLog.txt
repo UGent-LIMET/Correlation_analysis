@@ -1,7 +1,7 @@
 # Title: Software framework for the processing and statistical analysis of multivariate MS-data
 # Owner: Laboratory of Integrative Metabolomics (LIMET), Ghent university
 # Creator: Dr. Marilyn De Graeve
-# Maintainer: <limet@ugent.be>
+# Maintainer: Eewon Tai <Eewon.Tai@UGent.be>
 # Script: ErrorLog
 
 
@@ -56,7 +56,8 @@ Execution halted
 => are COLLUMN_NR_START_SAMPLES1 and COLLUMN_NR_START_SAMPLES2 correct? OR
 => need min 2 smaples and min 2 (non-zero) variables to work
 
-
-
 #
 ####################
+Error in confounder input (program ignores when it needs to get input from user):
+just write a line in the script such as confounders = c("29", "30", "31")
+(it selects the rows with 29,30,31 as the CompID values). 

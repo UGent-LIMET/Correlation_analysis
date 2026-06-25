@@ -3,24 +3,45 @@ Info:
 # Title: Software framework for the processing and statistical analysis of multivariate MS-data
 # Owner: Laboratory of Integrative Metabolomics (LIMET), Ghent university
 # Creator: Dr. Marilyn De Graeve
-# Maintainer: <limet@ugent.be>
+# Maintainer: Eewon Tai <Eewon.Tai@UGent.be>
 # Script: INSTALLATION_GUIDE
 
 get started
 ***********
-### Layout ###
-- make foldersystem:
-	> Pipeline_metabolomics
-		> Data
+# First, download source code from GitHub (download zip file, upzip it in a specific location)
+
+# Then, in the unzipped folder, make the foldersystem layout as described below
+- make foldersystem: (below is an example structure, can edit the names of the folders)
+	> Correlation_analysis-main
+		> Targeted_FFQ
 			> Input
-			> Output
-			> Reports
+				> 241119_FAME_FFQ_Corr
+					- Compounds_Filter.txt
+					- Configuration.R
+					- main.R
+					- VM1_part_metabolomics.txt
+					- VM2_part_source.txt
+			> Output_corr (folder for original correlation analysis)
+			> Output_pcorr (folder for partial correlation analysis)
 		> R_scripts
-- paste distributed R code in R_scripts folder
+
 - paste your personal files in Input folder according to instructions in README
+
+## Detailed folder structure information ##
+- the Data folder (now named Targeted_FFQ) must have an Input folder and two output folders (for correlation and partial correlation analysis)
+- under Input folder, there must exist a subfolder of a certain name (now: "241119_FAME_FFQ_Corr")
+- the subfolder (e.g. "241119_FAME_FFQ_Corr") must contain: 
+	1) the scripts Configuration.R and main.R
+	2) Compounds_Filter.txt (compound information)
+	3) two input data files
+- the folder paths must be specified in the Configuration and the main scripts
+	- also, the name_project variable must be edited to the name of the folder (now: name_project = "241119_FAME_FFQ_Corr")
+
 
 ### Install required dependencies ###
 - install required dependencies according to instructions in DEPENDENCIES
+
+# edit the variables in Configuration.R and main.R scripts according to your purposes
 
 ### Run code - 2 ways ###
 Method 1.
@@ -30,5 +51,4 @@ setwd("EDIT THIS - THE FOLDER PATH TO THE R SCRIPTS")
 source("main.r")
 
 ### Get results ###
-- in folder Data/output: plots, txt files raw output 
-
+- in the two output folders, you get plots and text files for correlation and partial correlation analysis.

@@ -1,7 +1,7 @@
 # Title: Software framework for the processing and statistical analysis of multivariate MS-data
 # Owner: Laboratory of Integrative Metabolomics (LIMET), Ghent university
 # Creator: Dr. Marilyn De Graeve
-# Maintainer: <limet@ugent.be>
+# Maintainer: Eewon Tai <Eewon.Tai@UGent.be>
 # Repository: Correlation_statistics
 
 # Description: This module performs Spearman correlation analysis and partial correlation analysis of the biological samples between two transformed (normalized, scaled) datasets. Possibly, input files can be created from the transposed “normalized, log transformed and pareto scaled biological samples MetadataT.txt” output from multivariate statistics.
@@ -9,18 +9,22 @@
 # -	Configuration.R
 # -	VM1_part_metabolomics.txt (VM1): metabolomics, with CompIDs as rows
 #   ! always need to be centered, normalized...
-# -	VM2_part_source.txt (VM2): other source, with variables as rows
+#   ! must have no missing values (NAs). If there are any, prior to the analysis you should impute them or fill them with zeros etc.
+# 	-	The columns must be samples and rows must contain features including each of the confounder variables, such as age, BMI, sex.
+# -	VM2_part_source.txt (VM2): other source, with CompIDs as rows, contains variables
 #   Format is less strict format, may contain e.g., OTU specific information instead of MS specific information). Include minimum of 2 features.
 #   ! always need to be centered, normalized...
-# -	The columns must be samples and rows must contain features including each of the confounder variables, such as age, BMI, sex.
+#   ! must have no missing values (NAs). If there are any, prior to the analysis you should impute them or fill them with zeros etc.
+# 	-	The columns must be samples and rows must contain features including each of the confounder variables, such as age, BMI, sex.
 # -	Optional: in case of OTU microbiome data as VM2, option to perform normalization and centration automatically during run. 
 # -	Optional: VM with the same CompIDs as 1st variableMetadata VM1 file to perform variables selection, to use in later analysis (e.g. univariate analysis)
 # -	Optional: reduce VM1 prior to correlation analysis using subsetted VM file. E.g. to run 2nd time with only VM1 compIDs that remain in SUBSET_VM (if p-values takes too long to run on whole dataset)
-# -	Confounders: Manually input the confounders for partial correlation analysis. 
-# -	It should be some combinations of rownames (of either or both datasets), where the values must be separated by commas - for example: 9012, 9013, 9014, 9015
-# - 	In case where confounders are categorical:
-# - 	1) ordered categories: must be converted into ordered numeric values (e.g. 1,2,3) 
-# - 	2) unordered categories: put the category as a single row with the categorical values, the code will automatically generate numeric dummy variables.
+# -	Confounders: Manually input the confounders for partial correlation analysis. (normally the code will ask for input, if it doesn't, see ErrorLog.txt)
+# 	-	It should be some combinations of the CompID column values of the rows (of either or both datasets), where the values must be separated by commas - for example: 9012, 9013, 9014, 9015
+# 	-	confounder variables can exist anywhere in any of the two input datasets, any combinations of rows will work
+# 	- 	In case where confounders are categorical:
+# 		- 	1) ordered categories: must be converted into ordered numeric values (e.g. 1,2,3) 
+# 		- 	2) unordered categories: put the category as a single row with the categorical values, the code will automatically generate numeric dummy variables.
 
 # Output: 
 # -	Histograms to check distribution of transformed input data (per set and overlay set1+set2)

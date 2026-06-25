@@ -3,7 +3,7 @@ Info:
 # Title: Software framework for the processing and statistical analysis of multivariate MS-data
 # Owner: Laboratory of Integrative Metabolomics (LIMET), Ghent university
 # Creator: Dr. Marilyn De Graeve
-# Maintainer: <limet@ugent.be>
+# Maintainer: Eewon Tai <Eewon.Tai@UGent.be>
 # Script: READ_ME
 
 get started
@@ -13,7 +13,10 @@ get started
 
 Need 2 files as input: 'VM1_part_metabolomics.txt', 'VM2_part_source.txt'
 - The columns must be samples and rows must contain features including each of the confounder variables, such as age, BMI, sex.
+- Important: the data input files must have no missing values (NAs). If there are any, prior to the analysis you should impute them or fill them with zeros etc., so that there are no missing values when you run the script.
+
 Need confounders as input (the confounders should be present as rows in either or both of the input datasets): 
+- The confounders can exist anywhere in the datasets, any combination of rows are possible.
 - Manually input the confounders for partial correlation analysis.
 - It should be some combinations of rownames, where the values must be separated by commas - for example: 9012, 9013, 9014, 9015
 - In case where confounders are categorical:
